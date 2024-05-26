@@ -15,7 +15,6 @@ const HeaderBox = ({
         )}
       </h1>
       <p className="header-box-subtext">{subtext}</p>
-      Content HERE
     </div>
   );
 };
