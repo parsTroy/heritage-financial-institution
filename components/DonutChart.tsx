@@ -18,7 +18,12 @@ const DonutChart = ({ accounts }: DoughnutChartProps) => {
     labels: ["Chase", "Wells Fargo"],
   };
 
-  return <Doughnut data={data} />;
+  return (
+    <Doughnut
+      options={{ cutout: "60%", plugins: { legend: { display: false } } }}
+      data={data}
+    />
+  );
 };
 
 export default DonutChart;
