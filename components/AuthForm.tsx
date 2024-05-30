@@ -4,8 +4,32 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+
+const formSchema = z.object({
+  username: z
+    .string()
+    .min(3, {
+      message: "Username must be at least 3 characters long",
+    })
+    .max(20),
+});
+
 const AuthForm = ({ type }: { type: string }) => {
   const [user, setUser] = useState(null);
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      username: "",
+    },
+  });
+
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log(values);
+  }
 
   return (
     <section className="auth-form">
