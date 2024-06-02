@@ -20,10 +20,23 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { Loader2 } from "lucide-react";
 
-const formSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(8),
-});
+const formSchema = (type: string) =>
+  z.object({
+    // Sign Up
+    firstName: type === "sign-in" ? z.string().optional() : z.string().min(3),
+    lastName: type === "sign-in" ? z.string().optional() : z.string().min(3),
+    address1:
+      type === "sign-in" ? z.string().optional() : z.string().min(3).max(50),
+    province: type === "sign-in" ? z.string().optional() : z.string().min(3),
+    postalCode:
+      type === "sign-in" ? z.string().optional() : z.string().min(3).max(6),
+    dateOfBirth: type === "sign-in" ? z.string().optional() : z.string().min(3),
+    sin: type === "sign-in" ? z.string().optional() : z.string().min(3),
+
+    // Shared
+    email: z.string().email(),
+    password: z.string().min(8),
+  });
 
 const AuthForm = ({ type }: { type: string }) => {
   const [user, setUser] = useState(null);
@@ -70,6 +83,173 @@ const AuthForm = ({ type }: { type: string }) => {
         <>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+              {type === "sign-up" && (
+                <>
+                  <FormField
+                    control={form.control}
+                    name="firstName"
+                    render={({ field }) => (
+                      <div className="form-item">
+                        <FormLabel className="form-label">First Name</FormLabel>
+                        <div className="flex w-full flex-col">
+                          <FormControl>
+                            <Input
+                              placeholder="Enter your first name"
+                              className="input-class"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage className="form-message mt-2" />
+                        </div>
+                      </div>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="lastName"
+                    render={({ field }) => (
+                      <div className="form-item">
+                        <FormLabel className="form-label">Last Name</FormLabel>
+                        <div className="flex w-full flex-col">
+                          <FormControl>
+                            <Input
+                              placeholder="Enter your last name"
+                              className="input-class"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage className="form-message mt-2" />
+                        </div>
+                      </div>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="address1"
+                    render={({ field }) => (
+                      <div className="form-item">
+                        <FormLabel className="form-label">Address</FormLabel>
+                        <div className="flex w-full flex-col">
+                          <FormControl>
+                            <Input
+                              placeholder="Enter your address"
+                              className="input-class"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage className="form-message mt-2" />
+                        </div>
+                      </div>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="province"
+                    render={({ field }) => (
+                      <div className="form-item">
+                        <FormLabel className="form-label">Province</FormLabel>
+                        <div className="flex w-full flex-col">
+                          <FormControl>
+                            <Input
+                              placeholder="Ex: Ontario"
+                              className="input-class"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage className="form-message mt-2" />
+                        </div>
+                      </div>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="postalCode"
+                    render={({ field }) => (
+                      <div className="form-item">
+                        <FormLabel className="form-label">
+                          Postal Code
+                        </FormLabel>
+                        <div className="flex w-full flex-col">
+                          <FormControl>
+                            <Input
+                              placeholder="Ex: H1A1A1"
+                              className="input-class"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage className="form-message mt-2" />
+                        </div>
+                      </div>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="dateOfBirth"
+                    render={({ field }) => (
+                      <div className="form-item">
+                        <FormLabel className="form-label">
+                          Date of Birth
+                        </FormLabel>
+                        <div className="flex w-full flex-col">
+                          <FormControl>
+                            <Input
+                              placeholder="YYYY-MM-DD"
+                              className="input-class"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage className="form-message mt-2" />
+                        </div>
+                      </div>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="sin"
+                    render={({ field }) => (
+                      <div className="form-item">
+                        <FormLabel className="form-label">SIN Number</FormLabel>
+                        <div className="flex w-full flex-col">
+                          <FormControl>
+                            <Input
+                              placeholder="Enter your sin Number"
+                              className="input-class"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage className="form-message mt-2" />
+                        </div>
+                      </div>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <div className="form-item">
+                        <FormLabel className="form-label">Email</FormLabel>
+                        <div className="flex w-full flex-col">
+                          <FormControl>
+                            <Input
+                              placeholder="Enter your email"
+                              className="input-class"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage className="form-message mt-2" />
+                        </div>
+                      </div>
+                    )}
+                  />
+                </>
+              )}
               <FormField
                 control={form.control}
                 name="email"
